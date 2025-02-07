@@ -42,16 +42,32 @@ public class MainTest {
 
     @Test
     @DisplayName("Test that Parrot instance named parrot2 has the name Miki.")
-    public void testParrot1HasTheNameMiki() {
+    public void testParrot2HasTheNameMiki() {
         Parrot parrot = context.getBean("parrot2", Parrot.class);
         assertEquals("Miki", parrot.getName());
     }
 
     @Test
     @DisplayName("Test that Parrot instance named parrot1 has the name Tiki.")
-    public void testParrot1HasTheNameRiki() {
+    public void testParrot3HasTheNameRiki() {
         Parrot parrot = context.getBean("parrot3", Parrot.class);
         assertEquals("Riki", parrot.getName());
+    }
+
+    @Test
+    @DisplayName("Test that Parrot instance named miki has the name Miki.")
+    public void testParrotMikiHasTheNameMiki() {
+        Parrot p = context.getBean("miki", Parrot.class);
+
+        assertEquals("Miki", p.getName());
+    }
+
+    @Test
+    @DisplayName("Test that the Parrot instance parrot named Koko is primary")
+    public void testParrot2IsPrimary() {
+        Parrot p = context.getBean(Parrot.class);
+
+        assertEquals("Koko", p.getName());
     }
 
     @Test
