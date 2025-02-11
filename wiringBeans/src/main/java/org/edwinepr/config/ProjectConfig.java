@@ -15,10 +15,13 @@ public class ProjectConfig {
     }
 
     @Bean
-    public Person person() {
+//    public Person person() { // firsts way
+    public Person person(Parrot parrot) { // second way
         Person person = new Person();
         person.setName("Marianne");
-//        person.setParrot(parrot());
+//        person.setParrot(parrot()); // First way
+        person.setParrot(parrot); // Second way
+
         return person;
     }
 }
