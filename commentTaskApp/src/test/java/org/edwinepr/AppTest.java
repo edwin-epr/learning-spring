@@ -1,38 +1,42 @@
 package org.edwinepr;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.edwinepr.model.Comment;
+import org.edwinepr.proxies.CommentNotificationProxy;
+import org.edwinepr.repositories.CommentRepository;
+import org.edwinepr.services.CommentService;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.mockito.Mockito.verify;
 
 /**
  * Unit test for simple App.
  */
-public class AppTest 
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
-    }
+@ExtendWith(MockitoExtension.class)
+public class AppTest {
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
+    @Mock
+    private CommentRepository commentRepository;
 
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
+    @Mock
+    private CommentNotificationProxy commentNotificationProxy;
+
+    @InjectMocks
+    private CommentService commentService;
+
+    @Test
+    @DisplayName("Verify that dependencies of the" +
+    "CommentService object are correctly called.")
+    public void verifyDependenciesOfTheCommentService() {
+        Comment comment = new Comment();
+
+        commentService.publishComment(comment);
+
+        verify(commentRepository).storeComment(comment);
+        verify(commentNotificationProxy).sendCommentNotification(comment);
     }
 }
