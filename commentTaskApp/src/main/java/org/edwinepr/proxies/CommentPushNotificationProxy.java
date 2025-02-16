@@ -1,11 +1,11 @@
 package org.edwinepr.proxies;
 
 import org.edwinepr.model.Comment;
-import org.springframework.context.annotation.Primary;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-@Primary
+@Qualifier("PUSH")
 public class CommentPushNotificationProxy implements CommentNotificationProxy {
 
     @Override
