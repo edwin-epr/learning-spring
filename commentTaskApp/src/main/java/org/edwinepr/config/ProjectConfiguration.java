@@ -22,7 +22,9 @@ public class ProjectConfiguration {
     }
 
     @Bean
-    public CommentService commentService() {
-        return new CommentService();
+    public CommentService commentService(
+            CommentRepository commentRepository,
+            CommentNotificationProxy commentNotificationProxy) {
+        return new CommentService(commentRepository, commentNotificationProxy);
     }
 }
