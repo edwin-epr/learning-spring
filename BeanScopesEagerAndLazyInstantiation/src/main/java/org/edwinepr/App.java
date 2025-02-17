@@ -11,8 +11,10 @@ public class App
     public static void main( String[] args )
     {
         var context = new AnnotationConfigApplicationContext(ProjectConfig.class);
-        System.out.println("Before retrieving the CommentService");
-        var service = context.getBean(CommentService.class);
-        System.out.println("After retrieving the CommentService");
+
+        var service1 = context.getBean(CommentService.class);
+        var service2 = context.getBean(CommentService.class);
+        boolean isSameBean = service1 == service2;
+        System.out.println("Is it the same bean? " + isSameBean);
     }
 }

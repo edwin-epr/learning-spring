@@ -1,14 +1,12 @@
 package org.edwinepr;
 
 import lombok.Data;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 @Service
-@Lazy
+@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @Data
 public class CommentService {
-    public CommentService() {
-        System.out.println("Comment Service instance created");
-    }
 }
