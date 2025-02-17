@@ -10,6 +10,9 @@ public class App
 {
     public static void main( String[] args )
     {
-        var service = new AnnotationConfigApplicationContext(ProjectConfig.class);
+        var context = new AnnotationConfigApplicationContext(ProjectConfig.class);
+        System.out.println("Before retrieving the CommentService");
+        var service = context.getBean(CommentService.class);
+        System.out.println("After retrieving the CommentService");
     }
 }
