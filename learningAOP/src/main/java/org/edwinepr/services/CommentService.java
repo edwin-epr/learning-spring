@@ -1,6 +1,7 @@
 package org.edwinepr.services;
 
 import lombok.Data;
+import org.edwinepr.aspects.ToLog;
 import org.edwinepr.model.Comment;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +13,17 @@ public class CommentService {
 
     private Logger logger = Logger.getLogger(CommentService.class.getName());
 
-    public String publishComment(Comment comment) {
+    public void publishComment(Comment comment) {
         logger.info("Publishing comment: " + comment.getText());
-        return "Successfully published comment";
+    }
+
+    @ToLog
+    public void deleteComment(Comment comment) {
+        logger.info("Deleting comment: " + comment.getText());
+    }
+
+    @ToLog
+    public void editComment(Comment comment) {
+        logger.info("Editing comment: " + comment.getText());
     }
 }

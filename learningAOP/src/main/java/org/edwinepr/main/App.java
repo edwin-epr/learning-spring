@@ -24,8 +24,9 @@ public class App
         comment.setText("This is a comment");
         comment.setAuthor("Edwinepr");
 
-        String value = service.publishComment(comment);
+        service.publishComment(comment);
+        service.deleteComment(comment);
+        service.editComment(comment);
 
-        logger.info(value);
     }
 }
