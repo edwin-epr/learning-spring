@@ -5,22 +5,27 @@ import org.edwinepr.model.Comment;
 import org.edwinepr.services.CommentService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.util.logging.Logger;
+
 /**
  * Learning AOP
  *
  */
 public class App 
 {
+    public static Logger logger = Logger.getLogger(App.class.getName());
     public static void main( String[] args )
     {
-        var contex = new AnnotationConfigApplicationContext(ProjectConfig.class);
+        var context = new AnnotationConfigApplicationContext(ProjectConfig.class);
 
-        var service = contex.getBean(CommentService.class);
+        var service = context.getBean(CommentService.class);
 
         Comment comment = new Comment();
         comment.setText("This is a comment");
         comment.setAuthor("Edwinepr");
 
-        service.publishComment(comment);
+        String value = service.publishComment(comment);
+
+        logger.info(value);
     }
 }
