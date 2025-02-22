@@ -25,8 +25,5 @@ public class App
         comment.setAuthor("Edwinepr");
 
         service.publishComment(comment);
-        service.deleteComment(comment);
-        service.editComment(comment);
-
     }
 }

@@ -18,14 +18,4 @@ public class CommentService {
         logger.info("Publishing comment: " + comment.getText());
         return "Successfully published comment.";
     }
-
-    @ToLog
-    public String deleteComment(Comment comment) {
-        logger.info("Deleting comment: " + comment.getText());
-        return "Successfully deleted comment.";
-    }
-
-    public void editComment(Comment comment) {
-        logger.info("Editing comment: " + comment.getText());
-    }
 }
