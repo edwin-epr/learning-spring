@@ -13,16 +13,18 @@ public class CommentService {
 
     private Logger logger = Logger.getLogger(CommentService.class.getName());
 
-    public void publishComment(Comment comment) {
+    @ToLog
+    public String publishComment(Comment comment) {
         logger.info("Publishing comment: " + comment.getText());
+        return "Successfully published comment.";
     }
 
     @ToLog
-    public void deleteComment(Comment comment) {
+    public String deleteComment(Comment comment) {
         logger.info("Deleting comment: " + comment.getText());
+        return "Successfully deleted comment.";
     }
 
-    @ToLog
     public void editComment(Comment comment) {
         logger.info("Editing comment: " + comment.getText());
     }

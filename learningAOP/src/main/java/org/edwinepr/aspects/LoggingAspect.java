@@ -1,8 +1,11 @@
 package org.edwinepr.aspects;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.edwinepr.model.Comment;
 
 import java.util.Arrays;
@@ -13,17 +16,13 @@ public class LoggingAspect {
 
     private Logger logger = Logger.getLogger(LoggingAspect.class.getName());
 
-    @Around("@annotation(ToLog)")
-    public Object log(ProceedingJoinPoint joinPoint) throws Throwable {
-        String methodName = joinPoint.getSignature().getName();
-        Object[] args = joinPoint.getArgs();
+    @AfterReturning(value = "@annotation(ToLog)", returning = "returnedValue")
+    public void log(Object returnedValue) throws Throwable {
+        logger.info("Method executed and returned: " + returnedValue);
+    }
 
-        logger.info("Method " + methodName +
-                " with parameters " + Arrays.asList(args) +
-                " will execute");
-
-        Object returnedByMethod = joinPoint.proceed();
-        logger.info("Method executed and returned: " + returnedByMethod);
-        return "FAILED";
+    @Before("@annotation(ToLog)")
+    public void logBefore(JoinPoint joinPoint) throws Throwable {
+        logger.info("Before method: " + joinPoint.getSignature().getName());
     }
 }
