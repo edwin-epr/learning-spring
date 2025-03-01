@@ -11,8 +11,8 @@ public class MainController {
 
     @RequestMapping("/home")
     public String home(
-            @RequestParam String name,
-            @RequestParam String color,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String color,
             Model page) {
         page.addAttribute("username", name);
         page.addAttribute("color", color);
