@@ -11,9 +11,10 @@ public class MainController {
 
     @RequestMapping("/home")
     public String home(
+            @RequestParam String name,
             @RequestParam String color,
             Model page) {
-        page.addAttribute("username", "Mariana");
+        page.addAttribute("username", name);
         page.addAttribute("color", color);
         return "home";
     }
