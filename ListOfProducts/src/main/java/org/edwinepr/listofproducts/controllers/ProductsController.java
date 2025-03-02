@@ -5,10 +5,7 @@ import org.edwinepr.listofproducts.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,15 +19,14 @@ public class ProductsController {
         this.productService = productService;
     }
 
-    @RequestMapping("/products")
+    @GetMapping(path = "/products")
     public String viewProducts(Model model) {
         List<Product> products = productService.findAll();
         model.addAttribute("products", products);
         return "products";
     }
 
-    @RequestMapping(path = "/products",
-                    method = RequestMethod.POST)
+    @PostMapping(path = "/products")
     public String addProduct(
             @RequestParam String name,
             @RequestParam double price,
