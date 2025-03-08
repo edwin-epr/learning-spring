@@ -1,6 +1,7 @@
 package org.edwinepr.springwebscopes.model;
 
 import lombok.Data;
+import org.edwinepr.springwebscopes.services.LoggedUserManagementService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 
@@ -8,6 +9,8 @@ import org.springframework.web.context.annotation.RequestScope;
 @RequestScope
 @Data
 public class LoginProcessor {
+
+    private final LoggedUserManagementService loggedUserManagementService;
     private String username;
     private String password;
 
@@ -15,6 +18,13 @@ public class LoginProcessor {
         String username = this.getUsername();
         String password = this.getPassword();
 
-        return "Marianne".equals(username) && "password".equals(password);
+        boolean loginResult = false;
+
+        if ("Marianne".equals(username) && "pa55word".equals(password)) {
+            loginResult = true;
+            loggedUserManagementService.setUsername(username);
+        }
+
+        return loginResult;
     }
 }
