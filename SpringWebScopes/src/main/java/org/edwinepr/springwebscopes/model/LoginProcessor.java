@@ -2,6 +2,7 @@ package org.edwinepr.springwebscopes.model;
 
 import lombok.Data;
 import org.edwinepr.springwebscopes.services.LoggedUserManagementService;
+import org.edwinepr.springwebscopes.services.LoginCountService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 
@@ -11,10 +12,15 @@ import org.springframework.web.context.annotation.RequestScope;
 public class LoginProcessor {
 
     private final LoggedUserManagementService loggedUserManagementService;
+    private final LoginCountService loginCountService;
+
     private String username;
     private String password;
 
     public boolean login() {
+
+        loginCountService.incrementCounter();
+
         String username = this.getUsername();
         String password = this.getPassword();
 

@@ -2,6 +2,7 @@ package org.edwinepr.springwebscopes.controllers;
 
 import lombok.Data;
 import org.edwinepr.springwebscopes.services.LoggedUserManagementService;
+import org.edwinepr.springwebscopes.services.LoginCountService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class MainController {
 
     private final LoggedUserManagementService loggedUserManagementService;
+    private final LoginCountService loginCountService;
 
     @GetMapping("/main")
     public String home(
@@ -23,12 +25,14 @@ public class MainController {
         }
 
         String username = loggedUserManagementService.getUsername();
+        int counter = loginCountService.getCounter();
 
         if (username == null) {
             return "redirect:/";
         }
 
         model.addAttribute("username", username);
+        model.addAttribute("loginCounter", counter);
         return "main";
     }
 }
