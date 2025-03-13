@@ -1,8 +1,6 @@
 package org.edwinepr.implrestservice.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.edwinepr.implrestservice.exceptions.NotEnoughMoneyException;
-import org.edwinepr.implrestservice.model.ErrorDetails;
 import org.edwinepr.implrestservice.model.PaymentDetails;
 import org.edwinepr.implrestservice.service.PaymentService;
 import org.springframework.http.HttpStatus;
@@ -18,18 +16,10 @@ public class PaymentController {
 
     @PostMapping(path = "/payment")
     public ResponseEntity<?> makePayment() {
-        try {
-            PaymentDetails paymentDetails = paymentService.processPayment();
+         PaymentDetails paymentDetails = paymentService.processPayment();
 
-            return ResponseEntity
-                    .status(HttpStatus.ACCEPTED)
-                    .body(paymentDetails);
-        } catch (NotEnoughMoneyException exception) {
-            ErrorDetails errorDetails = new ErrorDetails();
-            errorDetails.setMessage(exception.getMessage());
-            return ResponseEntity
-                    .badRequest()
-                    .body(errorDetails);
+         return ResponseEntity
+                .status(HttpStatus.ACCEPTED)
+                .body(paymentDetails);
         }
-    }
 }
