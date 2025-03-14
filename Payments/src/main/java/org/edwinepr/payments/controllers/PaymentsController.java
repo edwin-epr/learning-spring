@@ -22,7 +22,7 @@ public class PaymentsController {
             @RequestHeader String requestId,
             @RequestBody Payment payment) {
         logger.info("Received request with ID: " + requestId +
-                " ;Payment Amount: " + payment.getAmount());
+                "; Payment Amount: " + payment.getAmount());
 
         payment.setId(UUID.randomUUID().toString());
 
