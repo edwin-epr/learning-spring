@@ -15,6 +15,9 @@ import static org.mockito.Mockito.verify;
 
 class TransferServiceUnitTests {
 
+	private final long ID_SENDER = 1L;
+	private final long ID_RECEIVER = 2L;
+
 	@Test
 	@DisplayName("Test the amount is transferred " +
 	"from one account to another if no exception occurs.")
@@ -26,22 +29,22 @@ class TransferServiceUnitTests {
 				new TransferService(accountRepository);
 
 		Account sender = new Account();
-		sender.setId(1);
+		sender.setId(ID_SENDER);
 		sender.setAmount(new BigDecimal("1000"));
 
 		Account receiver = new Account();
-		receiver.setId(2);
+		receiver.setId(ID_RECEIVER);
 		receiver.setAmount(new BigDecimal("1000"));
 
-		given(accountRepository.findById(sender.getId()))
+		given(accountRepository.findById(ID_SENDER))
 				.willReturn(Optional.of(sender));
 
-		given(accountRepository.findById(receiver.getId()))
+		given(accountRepository.findById(ID_RECEIVER))
 				.willReturn(Optional.of(receiver));
 
 		transferService.transferMoney(
-				sender.getId(),
-				receiver.getId(),
+				ID_SENDER,
+				ID_RECEIVER,
 				new BigDecimal("200")
 		);
 

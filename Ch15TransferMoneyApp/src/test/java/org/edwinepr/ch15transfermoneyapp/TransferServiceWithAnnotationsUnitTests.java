@@ -23,6 +23,9 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(MockitoExtension.class)
 public class TransferServiceWithAnnotationsUnitTests {
 
+    private final long ID_SENDER = 1L;
+    private final long ID_RECEIVER = 2L;
+
     @Mock
     private AccountRepository accountRepository;
 
@@ -33,40 +36,40 @@ public class TransferServiceWithAnnotationsUnitTests {
     public void moneyTransferHappyFlow() {
 
         Account sender = new Account();
-        sender.setId(1L);
+        sender.setId(ID_SENDER);
         sender.setAmount(new BigDecimal(1000));
 
         Account receiver = new Account();
-        receiver.setId(2L);
+        receiver.setId(ID_RECEIVER);
         receiver.setAmount(new BigDecimal(1000));
 
-        given(accountRepository.findById(sender.getId()))
+        given(accountRepository.findById(ID_SENDER))
                 .willReturn(Optional.of(sender));
-        given(accountRepository.findById(receiver.getId()))
+        given(accountRepository.findById(ID_RECEIVER))
                 .willReturn(Optional.of(receiver));
 
-        transferService.transferMoney(1L, 2L, new BigDecimal(300));
+        transferService.transferMoney(ID_SENDER, ID_RECEIVER, new BigDecimal(300));
 
-        verify(accountRepository).changeAmount(1L, new BigDecimal(700));
-        verify(accountRepository).changeAmount(2L, new BigDecimal(1300));
+        verify(accountRepository).changeAmount(ID_SENDER, new BigDecimal(700));
+        verify(accountRepository).changeAmount(ID_RECEIVER, new BigDecimal(1300));
     }
 
     @Test
     public void moneyTransferReceiverAccountNotFoundFlow() {
 
         Account sender = new Account();
-        sender.setId(1L);
+        sender.setId(ID_SENDER);
         sender.setAmount(new BigDecimal(1000));
 
-        given(accountRepository.findById(sender.getId()))
+        given(accountRepository.findById(ID_SENDER))
                 .willReturn(Optional.of(sender));
 
-        given(accountRepository.findById(2L))
+        given(accountRepository.findById(ID_RECEIVER))
                 .willReturn(Optional.empty());
 
         assertThrows(
                 AccountNotFoundException.class,
-                () -> transferService.transferMoney(1, 2, new BigDecimal(100))
+                () -> transferService.transferMoney(ID_SENDER, ID_RECEIVER, new BigDecimal(100))
         );
 
         verify(accountRepository, never())
